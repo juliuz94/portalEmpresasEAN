@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ean-portal-empresas",
+  "private_key_id": "51d0ea8fb285f59142e72da7f9a8a851b3f958fc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEuwIBADANBgkqhkiG9w0BAQEFAASCBKUwggShAgEAAoIBAQC89TKUzTONVIvS\nISQP/CuzW+wwrV7Qy3FK1rGAJcbCA0IDQ34bMxFqKo6gbTnl9WioC00ePTXsSdUZ\nBDtNP1DwZj+sL5D23wqys1wEtIV91zxh2qHt4NJrAmD1yBcY02huFWf8jP8JHZd9\nZjibcXBXDWrybjcHVYhuS1yiEtZ6I9ChHvVBbrNahAIKtyuFVFSIdrv0zTIE4xy6\no9byewKrZlq4VdNk1P0X5jUF8reBjzsmFfN6aCBbz8KyAwSxqbRywcXjxHUWxNMY\n9AC40R0DrssL4V/KL0YSaR9FTGmPDf57jkfVe18rkIDJqLfEbn0fp4nN2f9jtk3v\ng5dsJ1uzAgMBAAECgf9QAJ0iuKJiJgYpcYlTO0aauCYBILugq2XMO6hdNdo4ZwxE\n47IdQ8kNjb5HLjCcc3XN6TPoNh7JM1z31v19jJhUvoQacSWoQ//f/p7Me6IJXpfO\nnZgOLYWUHl99PrpP1sCnaWjIPc29OPTcowdxAcErGliRE1Hj10TBptFm6gSsBooy\nnAPmuQB9JEy6C1+RyA8gm69yIRlFkOhrHVeM3RYKl4sf4gaGcQS/JG6IC+N8eJk3\nW/PM6VqlS2IJlxGMZ7OcSy+3MDnLh59JnXWcjYiemOKFnr0i/RMn7bSnPAtQhDGG\nbMBhjI+66/9tWshbU+Bz/yDPW+4p854WgBvMtbUCgYEA7iZ2v4w0VWT4WKr7VB0A\nkvIfxyaN/052kJvB6hBOIv4v+fMVa/zU4QJhQqpIsQGSu0E/5d2erlwAIwLRYhyD\nzAErhpRsVKnUlSEkJ8NRD31AnHZdUT1qWGbCnZPsc2+dEx83nAmNBlmdyqIofZ3a\nAyMGSKSTLOAcpe0bTFHsudcCgYEAyx7ZCytIxFT+L8k0dDPeikx24+H5J8sHezsK\nYWgNt1sLiGkud4AXO0MyH1kXYokb7BjlqcZPUCRU3s1OQIAVs+vCSk9gqbcgl+NO\niuA24rxQH5tHFQdxXrLb+bFA7AjcO/W2MsARYsn7wHuyHjpDnx0TnPGKWuxTcqSS\nmvWnyYUCgYAt6OhXgNXN6IsfvMZ6rqSfr2GE6N/S6fNdaUl2r/IAOPRSwRPOH42C\nWw0Y5u7ggKcixi9lRtYCUuYL2c03lruppkgXx6EiqSK8JQltSO/lhoXgI8lVkftg\nU18NNakNj+S9/PShdg3jvX73w07++GFA3Y2mj2N38TRUoGL00Y5LPQKBgBGAe/Ux\napi4NhrJ/IISwhcqlYf3Pa/HF8LviGpyO9RTvP+pCH71g4rwtE3tME2mQMisMIXb\nd5QRPVrhV9/I6ZXSN7CNfGfDRsSvqmHfBfutfD3s9EgElykwwjGWq2BrNwbXmjZv\nRFA91Tp1rhhart7z82+vhFtnR512PsepaSa9AoGBAMYxP5bp1nToAHJx/BMaxv+F\nujvC4DwuK4jJUWtsKnzMMMj44XthGiNhWnaOc0ZWo9cYmSJ14H+Ac0adikSVZeUf\nh4DmnKa3vg/XQY7bIyYX32RI0Dx/5fxdbNqdAbor7wOXk8+eiNtTu3jNk3Tv3UGb\nBiJ2543bITh8aTwzcGmU\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-b3uhj@ean-portal-empresas.iam.gserviceaccount.com",
+  "client_id": "101759499589090521159",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-b3uhj%40ean-portal-empresas.iam.gserviceaccount.com"
+}

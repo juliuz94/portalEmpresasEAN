@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>EAN Admin Empresas</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="css/admin.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+    </script>
+
+    <!-- Place your kits code here -->
+    <script src="https://kit.fontawesome.com/26ae697a10.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="images/RedEanistaB.png" alt="">
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Admin Portal Empresas</p>
+                <li>
+                    <a href="/admin">Inicio</a>
+                </li>
+                <li>
+                    <a href="" data-toggle="modal" data-target="#addCompany">Crear empresa</a>
+                </li>
+                <li>
+                    <a href="" data-toggle="modal" data-target="#addUser">Crear usuario</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <i class="fas fa-align-left"></i>
+                        <span>Menú</span>
+                    </button>
+
+                    <div class="" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <button class="btn btn-secondary">Salir</button>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <section>
+                <div class="category-selection">
+                    <button class="btn btn-outline-dark" data-toggle="collapse" href="#companies"
+                        role="button">Empresas</button>
+                    <button class="btn btn-outline-dark" data-toggle="collapse" href="#users" role="button">Usuarios</button>
+                </div>
+
+                <!-- Start Companies Section -->
+                <div class="collapse" id="companies">
+                    <div class="row">
+                        <% companies.forEach((company) => { %>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card rounded">
+                                    <div class="card-image">
+                                        <img src="<%= company.image %>" class="company-image" alt="">
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="company-title m-auto">
+                                            <h5><%= company.title %></h5>
+                                            <a data-toggle="collapse" href="#company-info<%= company._id %>25"
+                                                role="button"><i class="fas fa-sort-down"></i></a>
+                                        </div>
+                                        <div class="collapse" id="company-info<%= company._id %>25">
+                                            <div class="company-info">
+                                                <ul>
+                                                    <li>
+                                                        <p><i class="fas fa-info"></i>
+                                                            <%= company.description.substring(0, 15) %>  <a
+                                                                href="#<%= company._id %>" data-toggle="modal"><span>...</span></a></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fas fa-folder"></i> <%= company.category%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fas fa-user-tie"></i> <%= company.contactName%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fas fa-phone"></i> <%= company.phone%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fas fa-envelope"></i> <%= company.email%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fas fa-file"></i> <%= company.website%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fab fa-instagram"></i> <%= company.instagram%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fab fa-facebook-f"></i> <%= company.facebook%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fab fa-linkedin"></i> <%= company.linkedin%></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><i class="fab fa-twitter"></i> <%= company.twitter%></p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+                <!-- End Companies Section -->
+                <!-- Start Users Section -->
+                <div class="collapse" id="users">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Empresa</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach((user) => { %>
+                            <tr>
+                                <th scope="row"><%= user.name %></th>
+                                <td><%= user.email %></td>
+                                <td><%= user.companyId %></td>
+                                <td><%= user.type %></td>
+                                <td class="accions">
+                                    <a href=""><i class="fas fa-user-edit"></i></a>
+                                    <a href=""><i class="fas fa-trash-alt"></i></a>
+                                    </td>
+                            </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- End Companies Section -->
+            </section>
+
+            <!-- Add Company Modal -->
+            <div class="modal fade add-product" id="addCompany" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Añadir empresa</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/new-company" method="POST">
+                                <div class="form-group">
+                                    <label for="">Nombre de la empresa</label>
+                                    <input type="text" class="form-control" name="companyTitle" id=""
+                                        placeholder="Razón social de la empresa">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Categoría</label>
+                                    <input type="text" class="form-control" name="companyCategory" id=""
+                                        placeholder="Categoría a la que pertenece la empresa">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Crear empresa</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add User Modal -->
+            <div class="modal fade add-product" id="addUser" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Añadir usuario</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/new-user" method="POST">
+                                <div class="form-group">
+                                    <label for="">Nombre</label>
+                                    <input type="text" class="form-control" name="userName" id="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Correo</label>
+                                    <input type="text" class="form-control" name="userEmail" id="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Contraseña</label>
+                                    <input type="text" class="form-control" name="userPassword" id="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Empresa</label>
+                                    <select class="form-control" id="clientSelector" name="companyId">
+                                        <option value="">Seleccionar...</option>
+                                        <% companies.forEach(function(company){%>
+                                        <option value="<%= company._id %>"><%= company.title %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tipo de usuario</label>
+                                    <select class="form-control" id="clientSelector" name="userType">
+                                        <option value="usuario">Usuario</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Crear usuario</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Info Modal -->
+            <% companies.forEach((company) => { %>
+            <div class="modal fade add-product" id="<%= company._id %>" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Descripción <%= company.title %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><%= company.description %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+        integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous">
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
