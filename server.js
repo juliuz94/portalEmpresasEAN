@@ -186,16 +186,28 @@ const createPublicFileURL = (newFile) => {
 };
 
 app.post("/new-product", async (req, res) => {
-  let files = await new Promise((resolve, reject) => {
+  let product = await new Promise((resolve, reject) => {
     var form = new formidable.IncomingForm();
-    let fields = null;
     // Note the changes here
     form.parse(req, (error, fields, file) => {
+      //console.log(file.upload.name)
       if (error) {
         console.log('Errores', error)
       }
-      console.log(fields)
-      fields = fields;
+      //console.log(file.upload)
+      const newProduct = {
+        companyId: fields.companyID,
+        title: fields.productTitle,
+        description: fields.productDescription,
+        sku: fields.productSKU,
+        category: fields.productCategory,
+        price: fields.price,
+        refPrice: fields.referencePrice,
+        maxPerson: fields.maxUser,
+        stock: fields.productStock,
+        image: createPublicFileURL(file.upload)//"product-default.png"
+      };
+      resolve(newProduct);
     });
 
     form.on("fileBegin", function (name, file) {
@@ -218,22 +230,22 @@ app.post("/new-product", async (req, res) => {
         if (err) {
           console.log(err);
           throw (err);
-          return;
+
         }
         resultFile
           .makePublic()
           .then(() => {
-            //console.log()
+            console.log('UPLOADED FILE')
             fs.unlinkSync(file.path)
-            resolve({
+            /*resolve({
               fields: fields,
               url: createPublicFileURL(resultFile),
               id: resultFile.id
-            });
+            });*/
           })
           .catch((err) => {
             console.log(err);
-            reject(err);
+            throw (err);
           });
       }
       );
@@ -241,7 +253,7 @@ app.post("/new-product", async (req, res) => {
 
   });
   //Actualizas el registro
-  console.log('respuesta', files);
+  console.log('respuesta', product);
   /* const companyId = req.body.companyID;
   
   const newProduct = {
@@ -255,17 +267,20 @@ app.post("/new-product", async (req, res) => {
     stock: req.body.productStock,
     image: "product-default.png"
   };
-  
-  Company.findOne(
+  */
+  Company.updateOne(
     {
-      _id: companyId
-    },
+      _id: mongoose.Types.ObjectId(product.companyId)
+    }, {
+    $addToSet: {
+      products: product
+    }
+  },
     (err, foundCompany) => {
-      foundCompany.products.push(newProduct);
+      // foundCompany.products.push(product.newProduct);
       // foundCompany.save();
     }
   );
-  */
 
   res.redirect("/");
 });
@@ -281,7 +296,7 @@ app.get("/admin", checkAdmin, async (req, res) => {
 });
 
 app.post("/update-terms", (req, res) => {
-  const ip =req.header('x-forwarded-for') || req.connection.remoteAddress; 
+  const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   const userId = req.body.userId;
   console.log(ip);
   console.log(userId);
