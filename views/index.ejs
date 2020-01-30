@@ -58,7 +58,7 @@
                 </li>
             </ul>
         </nav>
-        <!-- 
+        <% if(user.accepterTerms === 'false') { %>
         <div class="t-c">
             <div class="container-fluid">
                 <div class="" tabindex="-1" role="dialog">
@@ -108,20 +108,23 @@
                                     • Solo se podrán usar los medios de pago destinados en la plataforma Red Ean.
                                     • Se encuentran prohibida la duplicación de las publicaciones.
                                 </p>
-                                <div class="form-check form-check-inline"></div>
-                                <input class="" name="tc" type="checkbox" id="tcCheckbox" value="option1">
-                                <label class="form-check-label tc" for="inlineCheckbox1">He leído y acepto las
-                                    políticas de uso</label>
+                                <form action="/update-terms" method="POST">
+                                    <input type="hidden" value="<%= userId %>" name="userId">
+                                    <div class="form-check form-check-inline"></div>
+                                    <input class="" name="tc" type="checkbox" id="tcCheckbox" value="option1">
+                                    <label class="form-check-label tc" for="inlineCheckbox1">He leído y acepto las
+                                        políticas de uso</label>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-success disabled" id="acceptTC">Continuar</button>
+                                <button type="submit" class="btn btn-success" disabled id="acceptTC">Continuar</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        -->
+        <% } %>
     </div>
 
     <!-- Page Content  -->
@@ -361,16 +364,14 @@
             });
 
             $('#tcCheckbox').on('click', function () {
-                console.log('activado');
                 if ($(this).is(":checked")) {
-                    $('#acceptTC').removeClass('disabled');
+                    $('#acceptTC').removeAttr('disabled');
                 } else {
-                    $('#acceptTC').addClass('disabled');
+                    $('#acceptTC').attr('disabled');
                 }
             });
 
         });
-
     </script>
 </body>
 
