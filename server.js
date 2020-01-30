@@ -16,8 +16,8 @@ const Storage = require('@google-cloud/storage');
 
 const storageGCP = new Storage.Storage({
   projectId: process.env.PROJECT_ID,
-  keyFilename: process.env.FIREBASE_FILE  
-}); 
+  keyFilename: process.env.FIREBASE_FILE
+});
 
 const bucket = storageGCP.bucket(process.env.STORAGE_BUCKET)
 
@@ -37,7 +37,7 @@ app.use(
   })
 );
 
-mongoose.connect("mongodb://localhost:27017/adminEmpresasDB", {
+mongoose.connect(process.env.MONGO, {
   useUnifiedTopology: true
 });
 
@@ -84,8 +84,8 @@ const userSchema = new mongoose.Schema({
   accepterTerms: String
 });
 
-const Company = mongoose.model("Company", companySchema);
-const User = mongoose.model("User", userSchema);
+const Company = mongoose.model("eancompanies", companySchema);
+const User = mongoose.model("eanusers", userSchema);
 
 const company1 = new Company({
   title: "Starbucks",
@@ -152,7 +152,7 @@ app.post(
   })
 );
 
-app.get("/logout", function(req, res) {
+app.get("/logout", function (req, res) {
   req.logOut();
   res.redirect("/login");
 });
@@ -180,51 +180,68 @@ app.get("/", checkAuthentication, async (req, res) => {
 });
 
 const createPublicFileURL = (newFile) => {
-  return 'https://storage.googleapis.com/' + process.env.GCS_BUCKET + '/' + encodeURIComponent(newFile.name);
+  return 'https://storage.googleapis.com/' + process.env.STORAGE_BUCKET + '/' + encodeURIComponent(newFile.name);
 };
 
-app.post("/new-product", (req, res) => {
-  var form = new formidable.IncomingForm();
-  // Note the changes here
-  form.parse(req, (error, fields, files) => {
-    let file = files[0];
-    bucket.upload('/Users/JulianLozano/Downloads/EAN-Admin-Empresas/uploads/Screen Shot 2020-01-29 at 9.39.05 AM.png',
-    {
-    destination: `${files.upload.name}`,
-    public: true,
-    metadata: { contentType: files.upload.type }}, (
-      err, resultFile) => {
-      if (err) {
-        console.log(err);
-        throw (err);
-        return;
+app.post("/new-product", async (req, res) => {
+  let files = await new Promise((resolve, reject) => {
+    var form = new formidable.IncomingForm();
+    let fields = null;
+    // Note the changes here
+    form.parse(req, (error, fields, file) => {
+      if (error) {
+        console.log('Errores', error)
       }
-      resultFile
-        .makePublic()
-        .then(() => {
-          console.log({
-            url: createPublicFileURL(resultFile),
-            id: resultFile.id
+      console.log(fields)
+      fields = fields;
+    });
+
+    form.on("fileBegin", function (name, file) {
+      file.path = __dirname + "/uploads/" + file.name;
+    });
+    form.on("file", function (name, file) {
+      // console.log("Uploaded " + file.name);
+      //console.log('file', file)
+      if (!fs.existsSync(file.path)) {
+        // Do something
+        console.log('NO El archivo existe')
+      }
+      bucket.upload(file.path,
+        {
+          destination: `${file.name}`,
+          public: true,
+          metadata: { contentType: file.type }
+        }, (
+          err, resultFile) => {
+        if (err) {
+          console.log(err);
+          throw (err);
+          return;
+        }
+        resultFile
+          .makePublic()
+          .then(() => {
+            //console.log()
+            fs.unlinkSync(file.path)
+            resolve({
+              fields: fields,
+              url: createPublicFileURL(resultFile),
+              id: resultFile.id
+            });
           })
-          resolve({});
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    }
-  );
-    console.log(files.upload);
-  });
+          .catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+      }
+      );
+    });
 
-  form.on("fileBegin", function(name, file) {
-    file.path = __dirname + "/uploads/" + file.name;
   });
-  form.on("file", function(name, file) {
-    // console.log("Uploaded " + file.name);
-  });
-
+  //Actualizas el registro
+  console.log('respuesta', files);
   /* const companyId = req.body.companyID;
-
+  
   const newProduct = {
     title: req.body.productTitle,
     description: req.body.productDescription,
@@ -236,7 +253,7 @@ app.post("/new-product", (req, res) => {
     stock: req.body.productStock,
     image: "product-default.png"
   };
-
+  
   Company.findOne(
     {
       _id: companyId
@@ -246,7 +263,7 @@ app.post("/new-product", (req, res) => {
       // foundCompany.save();
     }
   );
- */
+  */
 
   res.redirect("/");
 });
