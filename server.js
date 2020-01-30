@@ -175,7 +175,9 @@ app.get("/", checkAuthentication, async (req, res) => {
 
   res.render("index", {
     companyId: companyId,
-    products: products
+    products: products,
+    user: user,
+    userId: userId
   });
 });
 
@@ -259,6 +261,26 @@ app.get("/admin", checkAdmin, async (req, res) => {
   Company.find({}, (err, foundCompanies) => {
     res.render("admin.ejs", { companies: foundCompanies, users: users });
   });
+});
+
+app.post("/update-terms", (req, res) => {
+  const ip =req.header('x-forwarded-for') || req.connection.remoteAddress; 
+  const userId = req.body.userId;
+  console.log(ip);
+  console.log(userId);
+
+  User.updateOne({
+    _id: userId
+  }, {
+    accepterTerms: ip
+  }, (err) => {
+    if (!err) {
+      return res.redirect("/");
+    } else {
+      console.log(err);
+    }
+  });
+
 });
 
 app.post("/new-company", (req, res) => {
