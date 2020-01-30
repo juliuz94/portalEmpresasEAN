@@ -185,6 +185,11 @@ const createPublicFileURL = (newFile) => {
   return 'https://storage.googleapis.com/' + process.env.STORAGE_BUCKET + '/' + encodeURIComponent(newFile.name);
 };
 
+
+app.post('new-image', async (req, res) => {
+
+})
+
 app.post("/new-product", async (req, res) => {
   let product = await new Promise((resolve, reject) => {
     var form = new formidable.IncomingForm();
